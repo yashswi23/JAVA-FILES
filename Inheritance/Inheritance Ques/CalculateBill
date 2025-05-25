@@ -1,0 +1,45 @@
+class Bill
+{
+int item;
+int quan;
+    Bill(int i, int q){
+        this.item=i;
+        this.quan=q;
+    }
+    public int generateBill(){
+        return item*quan;
+    }
+}
+
+class Cash extends Bill
+{
+public int notes2000,notes500,notes100,notes50,notes10;
+int p,q;
+Cash(){
+super(0,0);
+}
+
+ void get_cash()
+ {
+     // Complete the input function, dont change the name.
+     Scanner sc = new Scanner(System.in);
+     item= sc.nextInt();
+     quan= sc.nextInt();
+     notes2000=sc.nextInt();
+     notes500=sc.nextInt();
+     notes100=sc.nextInt();
+     notes50=sc.nextInt();
+     notes10=sc.nextInt();
+ }
+ void display()
+ {
+     int totalcash= notes2000*2000+notes500*500+notes100*100+notes50*50+notes10*10;
+     int bill = generateBill();
+     if(totalcash>=bill){
+     System.out.println("Clear");
+     }
+     else{
+     System.out.println("Need to pay: "+(bill-totalcash));
+     }
+ }
+}
