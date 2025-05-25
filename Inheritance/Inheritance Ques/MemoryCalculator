@@ -1,0 +1,31 @@
+class MemoryCalculator extends Calculator
+{
+   public Map<Integer,Integer> pcount;
+   int memoc;
+   int compc;
+   MemoryCalculator(int seed){
+  super(seed);
+  pcount = new HashMap<>();
+  this.memoc=0;
+  this.compc=0;
+   }
+   public int getComputeCount(){
+   return compc;
+   }
+   public int getMemoCount(){
+   return memoc;
+   }
+   
+   public int kthPrime(int k){
+   if(pcount.containsKey(k)){
+   memoc++;
+   return pcount.get(k);
+   }
+   else{
+   int prime = super.kthPrime(k);
+   pcount.put(k,prime);
+   compc++;
+   return prime;
+   }
+   }
+}
