@@ -1,0 +1,18 @@
+class FilteredAccount extends Account
+{ 
+    int ftrans;
+    FilteredAccount(int acc){
+    super(acc);
+    ftrans=0;
+    }
+    public boolean process(Transaction t){
+    if(t.value()==0){
+    ftrans++;
+    return true;
+    }
+    return super.process(t);
+    }
+    public int filtered(){
+    return ftrans;
+    }
+}
