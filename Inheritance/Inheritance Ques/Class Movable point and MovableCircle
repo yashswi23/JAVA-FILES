@@ -1,0 +1,116 @@
+Let us have a set of objects with some common behaviors i.e. they could move up, down, left or right. The exact behaviors (such as how to move and how far to move) depend on the objects themselves.
+
+One common way to model these common behaviors is to define an interface called Movable, with abstract methods moveUp(), moveDown(), moveLeft() and moveRight().
+
+The classes that implement the Movable interface will provide actual implementation to these abstract methods. The code for the interface Movable is straight forward.
+
+interface Movable
+{
+  public void moveUp();
+  public void moveDown();
+  public void moveLeft();
+  public void moveRight();
+}
+Now write two concrete classes - MovablePoint and MovableCircle - that implement the Movable interface.
+
+For the MovablePoint class, declare the instance variable x, y, xSpeed and ySpeed with package access (i.e., classes in the same package can access these variables directly).
+For the MovableCircle class, use a MovablePoint to represent its center (which contains four variable x, y, xSpeed and ySpeed). In other words, the MovableCircle composes a MovablePoint, and its radius.
+class MovablePoint implements Movable 
+{
+   int x, y, xSpeed, ySpeed;     // package access
+  ﻿ // Constructor
+﻿   public MovablePoint(int x, int y, int xSpeed, int ySpeed) {
+      this.x = x;
+      ......
+   }
+   // Implement abstract methods declared in the interface Movable
+  ﻿@Override
+  public void moveUp() {
+      y -= ySpeed;   // y-axis pointing down for 2D graphics
+   }
+   ......
+}
+
+class MovableCircle implements Movable 
+{
+   private MovablePoint center;   // can use center.x, center.y directly because they are package accessible
+   private int radius;
+   // Constructor
+   ﻿public MovableCircle(int x, int y, int xSpeed, int ySpeed, int radius) {
+      // Call the MovablePoint's constructor to allocate the center instance.
+      center = new MovablePoint(x, y, xSpeed, ySpeed);
+      ......
+   }
+   ......
+   
+   // Implement abstract methods declared in the interface Movable
+﻿  @Override
+  public void moveUp() {
+      center.y -= center.ySpeed;
+   }
+   ......
+}
+Also add a toString() method in both above classes to print their x and y position in the format shown below: -
+
+[X=value, Y=value] // for MovablePoint
+[X=value, Y=value, radius=value] 	// for MovableCircle
+
+
+
+**Solution
+class MovablePoint implements Movable 
+{
+  int x, y, xSpeed, ySpeed;
+  // Constructor
+  MovablePoint(int x, int y, int xSpeed, int ySpeed ){
+  this.x =x;
+  this.y = y;
+  this.xSpeed = xSpeed;
+  this.ySpeed = ySpeed;
+  }
+  // Implement abstract methods declared in the interface Movable
+  public void moveUp(){
+  y-=ySpeed;
+  }
+  public void moveDown(){
+  y+=ySpeed;
+  }
+  public void moveLeft(){
+  x-=xSpeed;
+  }
+  public void moveRight(){
+  x+=xSpeed;
+  }
+  public String toString(){
+  return "[X="+x+", Y="+y+"]";
+  }
+}
+class MovableCircle implements Movable 
+{
+  private MovablePoint center;
+  private int radius;
+  // Constructor
+  MovableCircle(int x, int y, int xSpeed,int ySpeed,int r){
+  center = new MovablePoint(x,y,xSpeed,ySpeed);
+  this.radius = r;
+  }
+  public void moveUp(){
+  center.moveUp();
+  }
+  public void moveDown(){
+  center.moveDown();
+  }
+  public void moveLeft(){
+  center.moveLeft();
+  }
+  public void moveRight(){
+  center.moveRight();
+  }
+  // Implement abstract methods declared in the interface Movable
+  public int getRadius(){
+  return radius;
+  }
+  public String toString(){
+  return "[X="+center.x+", Y="+center.y+", radius="+radius+"]";
+  }
+}

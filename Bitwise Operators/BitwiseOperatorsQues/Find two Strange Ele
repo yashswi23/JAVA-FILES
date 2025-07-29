@@ -1,0 +1,23 @@
+class Result{
+  static void printStrangeElements(int[] arr, int n) {
+    // Write your code here
+Step1 . Xor of all Elements
+      int xor=0;
+      for(int num:arr){
+          xor^=num;
+      }
+      step2 Find the rightmostset bit from them
+      int x=0,y=0;
+      int diff = xor&-xor;
+      step3. group them on the basis of their freq
+      for(int num:arr){
+          if((num&diff)!=0){
+              x^=num;
+          }
+          else{
+              y^=num;
+          }
+      }
+      System.out.println(Math.min(x,y)+" "+Math.max(x,y));
+  }
+}

@@ -1,0 +1,15 @@
+Problem Explanation:- 1You aare on level 1 and your eenmy is on level n and You can jump in any power of 2(1,2,4,8,16) Trick:Think of Bitwise here . And You have to find Min Jumps We took
+class Result {
+  // Return the minimum number of jumps 
+  static int getMinJumps(long n) {
+    // Write your code here
+      int count=0;
+      while(n>0){
+          if((n&1)==1){
+              count++;
+          }
+          n=n>>1;
+      }
+return count;
+  }
+}
